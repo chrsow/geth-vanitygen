@@ -88,6 +88,7 @@ func searchAddress(word string, searchType string) (string, string) {
 func foundAddress(addr string, privKey string) {
 	fmt.Printf("Address: 0x%s\n", addr)
 	fmt.Printf("PrivateKey: %s\n", privKey)
+	fmt.Println("")
 }
 
 // prefix, suffix from cli

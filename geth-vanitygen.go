@@ -55,7 +55,7 @@ func generateAccount() string {
 }
 
 // TODO: add time being used so user will know how long they spend time on the genearation
-// TODO: add some
+// TODO: add some cli emo or loading bar
 // searchAddress: search eth address
 func searchAddress(word string, searchType string) (string, string) {
 	length := len(word)
@@ -78,11 +78,11 @@ func searchAddress(word string, searchType string) (string, string) {
 			}
 		}
 	default:
-		fmt.Println("Eiei")
+		panic("[-] Hmm,  how can you come here ?")
 	}
 
-	privKey := hex.EncodeToString(crypto.FromECDSA(key))
-	return address, privKey
+	privateKey := hex.EncodeToString(crypto.FromECDSA(key))
+	return address, privateKey
 }
 
 func foundAddress(addr string, privKey string) {
@@ -119,6 +119,10 @@ func main() {
 		fmt.Printf("[+] Address with suffix %s found.\n", word)
 		foundAddress(addr, privKey)
 	} else { // Default searching
-		// addr, privKey := searchAddress(word, "suffix")
+		for true {
+			address := generateAccount()
+			privateKey := hex.EncodeToString(crypto.FromECDSA(key))
+			foundAddress(address, privateKey)
+		}
 	}
 }

@@ -12,13 +12,13 @@ go get https://github.com/chrsow/geth-vanitygen
 
 `suffix` searchig address for specific suffix. (`-s` option)
 
-## Example
+## Examples
 ```
 // search for eth. address with prefix 555
-# geth-vanitygen -p 555
-[+] Address with prefix 555 found.
-Address: 0x555.....
-PrivateKey: 3b.....
+# geth-vanitygen -p beef
+[+] Address with prefix beef found.
+Address: 0xbeef.....
+PrivateKey: 52.....
 
 // search for eth. address with suffix 00
 # geth-vanitygen -s 00

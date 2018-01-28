@@ -1,6 +1,6 @@
 # go-ethereum-vanitygen (In progess)
-Vanitygen for Ethereum. Supports for specific prefix or suffix.
-(Dev. progress)
+Vanitygen for Ethereum. Supports for specific prefix or suffix. 
+The purposes are for learning Golang and generating Ethereum address for PoC of short address attack on Ethereum.
 
 ## Install
 ```

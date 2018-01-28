@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/ecdsa"
 	"encoding/hex"
 	"flag"
 	"fmt"
@@ -45,27 +46,12 @@ func validateWord(word string) {
 
 func generateAccount() string {
 	// 1. generate private key, ECDSA(private key)  => public key
-	key, _ := crypto.GenerateKey()
+	key, _ = crypto.GenerateKey()
 	pubKey := key.PublicKey
 	// 2. public key => address
 	address := crypto.PubkeyToAddress(pubKey)
 	addressHex := hex.EncodeToString(address[:])
 	return addressHex
-}
-
-// searchPrefix: search eth address with prefix `word`
-func searchPrefix(word string) (string, string) {
-	length := len(word)
-	found := false
-	var address string
-	for !found {
-		address = generateAccount()
-		if address[:length] == word {
-			found = true
-		}
-	}
-
-	return address, "12414"
 }
 
 // TODO: add time being used so user will know how long they spend time on the genearation
@@ -95,17 +81,19 @@ func searchAddress(word string, searchType string) (string, string) {
 		fmt.Println("Eiei")
 	}
 
-	return address, "12414"
+	privKey := hex.EncodeToString(crypto.FromECDSA(key))
+	return address, privKey
 }
 
 func foundAddress(addr string, privKey string) {
 	fmt.Printf("Address: 0x%s\n", addr)
-	fmt.Printf("PrivateKey: 0x%s\n", privKey)
+	fmt.Printf("PrivateKey: %s\n", privKey)
 }
 
 // prefix, suffix from cli
 var prefix stringFlag
 var suffix stringFlag
+var key *ecdsa.PrivateKey
 
 func init() {
 	flag.Var(&prefix, "p", "")

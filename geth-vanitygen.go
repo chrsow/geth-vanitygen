@@ -37,10 +37,13 @@ func validateWord(word string) {
 	if !r {
 		fmt.Printf("[-] %s : not a valid hexadecimal.", word)
 		os.Exit(1)
+	} else if len(word) > 40 {
+		fmt.Println("[-] You can't generate matching Ethereum address for more than 40 characters (20 bytes).")
+		os.Exit(1)
 	}
 }
 
-func genAccount() string {
+func generateAccount() string {
 	// 1. generate private key, ECDSA(private key)  => public key
 	key, _ := crypto.GenerateKey()
 	pubKey := key.PublicKey
@@ -52,22 +55,47 @@ func genAccount() string {
 
 // searchPrefix: search eth address with prefix `word`
 func searchPrefix(word string) (string, string) {
-	address := genAccount()
-	fmt.Println(address)
-	return "123", "12414"
+	length := len(word)
+	found := false
+	var address string
+	for !found {
+		address = generateAccount()
+		if address[:length] == word {
+			found = true
+		}
+	}
+
+	return address, "12414"
 }
 
-// searchSuffix: search eth address with suffix `word`
-func searchSuffix(word string) (string, string) {
-	address := genAccount()
-	fmt.Println(address)
-	return "", ""
-}
+// TODO: add time being used so user will know how long they spend time on the genearation
+// TODO: add some
+// searchAddress: search eth address
+func searchAddress(word string, searchType string) (string, string) {
+	length := len(word)
+	found := false
+	var address string
 
-func deafaultSearch(word string) (string, string) {
-	address := genAccount()
-	fmt.Println(address)
-	return "", ""
+	switch searchType {
+	case "prefix":
+		for !found {
+			address = generateAccount()
+			if address[:length] == word {
+				found = true
+			}
+		}
+	case "suffix":
+		for !found {
+			address = generateAccount()
+			if address[40-length:] == word {
+				found = true
+			}
+		}
+	default:
+		fmt.Println("Eiei")
+	}
+
+	return address, "12414"
 }
 
 func foundAddress(addr string, privKey string) {
@@ -93,16 +121,16 @@ func main() {
 	} else if prefix.set { // Prefix searching
 		word = prefix.value
 		validateWord(word)
-		addr, privKey := searchPrefix(word)
+		addr, privKey := searchAddress(word, "prefix")
 		fmt.Printf("[+] Address with prefix %s found.\n", word)
 		foundAddress(addr, privKey)
 	} else if suffix.set { // Suffix searching
 		word = suffix.value
 		validateWord(word)
-		addr, privKey := searchSuffix(word)
+		addr, privKey := searchAddress(word, "suffix")
 		fmt.Printf("[+] Address with suffix %s found.\n", word)
 		foundAddress(addr, privKey)
 	} else { // Default searching
-		// panic(fmt.Sprintf("[-] "))
+		// addr, privKey := searchAddress(word, "suffix")
 	}
 }

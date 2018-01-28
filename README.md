@@ -1,4 +1,4 @@
-# go-ethereum-vanitygen
+# go-ethereum-vanitygen (In progess)
 Vanitygen for Ethereum. Supports for specific prefix or suffix.
 (Dev. progress)
 

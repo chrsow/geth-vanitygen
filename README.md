@@ -4,7 +4,7 @@ The purposes are for learning Golang and generating Ethereum address for PoC of 
 
 ## Installation
 ```
-go get https://github.com/chrsow/geth-vanitygen
+go get github.com/chrsow/geth-vanitygen
 ```
 
 ## Features

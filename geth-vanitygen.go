@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"regexp"
 
 	"github.com/ethereum/go-ethereum/crypto"
 )
@@ -29,6 +30,15 @@ func (sf *stringFlag) String() string {
 }
 
 // == END: FLAG PARSE CHECKING ==
+
+//validate word
+func validateWord(word string) {
+	r, _ := regexp.MatchString(`^[0-9a-fA-F]+$`, word)
+	if !r {
+		fmt.Printf("[-] %s : not a valid hexadecimal.", word)
+		os.Exit(1)
+	}
+}
 
 func genAccount() string {
 	// 1. generate private key, ECDSA(private key)  => public key
@@ -82,11 +92,13 @@ func main() {
 		os.Exit(1)
 	} else if prefix.set { // Prefix searching
 		word = prefix.value
+		validateWord(word)
 		addr, privKey := searchPrefix(word)
 		fmt.Printf("[+] Address with prefix %s found.\n", word)
 		foundAddress(addr, privKey)
 	} else if suffix.set { // Suffix searching
 		word = suffix.value
+		validateWord(word)
 		addr, privKey := searchSuffix(word)
 		fmt.Printf("[+] Address with suffix %s found.\n", word)
 		foundAddress(addr, privKey)

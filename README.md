@@ -8,9 +8,9 @@ go get https://github.com/chrsow/geth-vanitygen
 ```
 
 ## Features
-`prefix` searchig address for specific prefix
+`prefix` searchig address for specific prefix. (`-p` option)
 
-`suffix` searchig address for specific suffix
+`suffix` searchig address for specific suffix. (`-s` option)
 
 ## Example
 ```

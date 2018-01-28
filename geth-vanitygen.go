@@ -78,16 +78,16 @@ func searchAddress(word string, searchType string) (string, string) {
 			}
 		}
 	default:
-		panic("[-] Hmm,  how can you come here ?")
+		address = generateAccount()
 	}
 
 	privateKey := hex.EncodeToString(crypto.FromECDSA(key))
 	return address, privateKey
 }
 
-func foundAddress(addr string, privKey string) {
-	fmt.Printf("Address: 0x%s\n", addr)
-	fmt.Printf("PrivateKey: %s\n\n", privKey)
+func foundAddress(address string, privateKey string) {
+	fmt.Printf("Address: 0x%s\n", address)
+	fmt.Printf("PrivateKey: %s\n\n", privateKey)
 }
 
 // prefix, suffix from cli
@@ -109,20 +109,18 @@ func main() {
 	} else if prefix.set { // Prefix searching
 		word = prefix.value
 		validateWord(word)
-		addr, privKey := searchAddress(word, "prefix")
+		address, privateKey := searchAddress(word, "prefix")
 		fmt.Printf("[+] Address with prefix %s found.\n", word)
-		foundAddress(addr, privKey)
+		foundAddress(address, privateKey)
 	} else if suffix.set { // Suffix searching
 		word = suffix.value
 		validateWord(word)
-		addr, privKey := searchAddress(word, "suffix")
+		address, privateKey := searchAddress(word, "suffix")
 		fmt.Printf("[+] Address with suffix %s found.\n", word)
-		foundAddress(addr, privKey)
+		foundAddress(address, privateKey)
 	} else { // Default searching
-		for true {
-			address := generateAccount()
-			privateKey := hex.EncodeToString(crypto.FromECDSA(key))
-			foundAddress(address, privateKey)
-		}
+		address, privateKey := searchAddress(word, "")
+		fmt.Println("[+] Generate Ethereum address")
+		foundAddress(address, privateKey)
 	}
 }

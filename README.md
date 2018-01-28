@@ -16,11 +16,13 @@ go get https://github.com/chrsow/geth-vanitygen
 ```
 // search for eth. address with prefix 555
 # geth-vanitygen -p 555
+[+] Address with prefix 555 found.
 Address: 0x555.....
 PrivateKey: 3b.....
 
 // search for eth. address with suffix 00
 # geth-vanitygen -s 00
+[+] Address with suffix 00 found.
 Address: 0x2f.....00
 PrivateKey: 81.....
 

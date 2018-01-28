@@ -36,7 +36,7 @@ func (sf *stringFlag) String() string {
 func validateWord(word string) {
 	r, _ := regexp.MatchString(`^[0-9a-fA-F]+$`, word)
 	if !r {
-		fmt.Printf("[-] %s : not a valid hexadecimal.", word)
+		fmt.Printf("[-] %s: is not a valid hexadecimal.\n", word)
 		os.Exit(1)
 	} else if len(word) > 40 {
 		fmt.Println("[-] You can't generate matching Ethereum address for more than 40 characters (20 bytes).")
@@ -87,8 +87,7 @@ func searchAddress(word string, searchType string) (string, string) {
 
 func foundAddress(addr string, privKey string) {
 	fmt.Printf("Address: 0x%s\n", addr)
-	fmt.Printf("PrivateKey: %s\n", privKey)
-	fmt.Println("")
+	fmt.Printf("PrivateKey: %s\n\n", privKey)
 }
 
 // prefix, suffix from cli

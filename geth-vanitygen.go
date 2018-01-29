@@ -110,13 +110,13 @@ func main() {
 		word = prefix.value
 		validateWord(word)
 		address, privateKey := searchAddress(word, "prefix")
-		fmt.Printf("[+] Address with prefix %s found.\n", word)
+		fmt.Printf("[+] Address with prefix \"%s\" found.\n", word)
 		foundAddress(address, privateKey)
 	} else if suffix.set { // Suffix searching
 		word = suffix.value
 		validateWord(word)
 		address, privateKey := searchAddress(word, "suffix")
-		fmt.Printf("[+] Address with suffix %s found.\n", word)
+		fmt.Printf("[+] Address with suffix \"%s\" found.\n", word)
 		foundAddress(address, privateKey)
 	} else { // Default searching
 		address, privateKey := searchAddress(word, "")
